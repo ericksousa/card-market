@@ -1,0 +1,15 @@
+#app {
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: $dark-page;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: $secondary;
+}
