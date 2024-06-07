@@ -8,6 +8,8 @@ export const auth_hooks: RouteRecordRaw[] = [
     component: () => import("@/views/pages/auth/login.vue"),
     meta: {
       title: "Login",
+      public: true,
+      only_disconected: true,
     },
   },
   {

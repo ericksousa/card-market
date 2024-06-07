@@ -7,5 +7,6 @@ export const home_hooks: RouteRecordRaw = {
   component: () => import("@/views/pages/home/home.vue"),
   meta: {
     title: "Home",
+    public: true,
   },
 };

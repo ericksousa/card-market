@@ -7,6 +7,7 @@ import { Loading } from "quasar";
 import { ENUM_LOADING } from "@/controllers/enum/loading.enum";
 import { CreateNotify } from "@/views/util/notify.util";
 import { useRouter } from "vue-router";
+import { auth_store } from "@/vue/store/auth/auth.store";
 
 const data = reactive(AuthData);
 const router = useRouter();
@@ -19,7 +20,11 @@ async function on_submit() {
 
   await data
     .login(data.payload_login)
-    .then(() => {
+    .then(({ user, token }) => {
+      auth_store().$patch({
+        user,
+        token,
+      });
       CreateNotify.success("Login efetuado com sucesso!");
       router.push({ name: ENUM_ROUTER_NAME.HOME });
     })

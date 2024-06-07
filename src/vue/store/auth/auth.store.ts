@@ -7,6 +7,10 @@ export const auth_store = defineStore("auth", {
     token: null,
   }),
 
+  persist: {
+    storage: sessionStorage,
+  },
+
   actions: {
     logout() {
       this.$reset();
