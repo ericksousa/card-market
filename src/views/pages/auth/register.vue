@@ -1,30 +1,58 @@
 <script lang="ts" setup>
+import AuthData from "@/views/data/auth/auth.data";
 import { reactive, ref } from "vue";
 import { field_required } from "@/views/util/validation.util";
-import AuthData from "@/views/data/auth/auth.data";
 import { ENUM_ROUTER_NAME } from "@/vue/router/enum/router-name.enum";
+import { Loading } from "quasar";
+import { ENUM_LOADING } from "@/controllers/enum/loading.enum";
+import { CreateNotify } from "@/views/util/notify.util";
+import { useRouter } from "vue-router";
 
 const data = reactive(AuthData);
-
+const router = useRouter();
 const showPwd = ref(false);
 
 async function on_submit() {
-  console.log("ok");
+  Loading.show({
+    message: ENUM_LOADING.CADASTRANDO,
+  });
+
+  await data
+    .register(data.payload_register)
+    .then(() => {
+      CreateNotify.success("Cadastro realizado com sucesso!");
+      router.push({ name: ENUM_ROUTER_NAME.LOGIN });
+    })
+    .finally(() => Loading.hide());
 }
+
+/**
+ * Daria pra otimizar este componente afim de evitar tanta
+ * duplicidade de código com o login
+ */
 </script>
 
 <template>
   <q-card class="q-pa-md shadow-2 login-box" bordered>
     <q-card-section class="text-center">
-      <div class="text-grey-9 text-h5 text-weight-bold">Login</div>
-      <div class="text-grey-8">Faça login abaixo para acessar sua conta</div>
+      <div class="text-grey-9 text-h5 text-weight-bold">Cadastre-se</div>
+      <div class="text-grey-8">Preencha os dados abaixo para se cadastrar</div>
     </q-card-section>
 
     <q-form @submit.prevent.stop="on_submit">
       <q-card-section>
         <div class="q-gutter-y-sm column">
           <q-input
-            v-model="data.payload_login.email"
+            v-model="data.payload_register.name"
+            :rules="[field_required]"
+            label="Nome"
+            type="text"
+            outlined
+            dense
+          />
+
+          <q-input
+            v-model="data.payload_register.email"
             :rules="[field_required]"
             label="E-mail"
             type="email"
@@ -33,9 +61,9 @@ async function on_submit() {
           />
 
           <q-input
-            v-model="data.payload_login.password"
-            :type="showPwd ? 'text' : 'password'"
+            v-model="data.payload_register.password"
             :rules="[field_required]"
+            :type="showPwd ? 'text' : 'password'"
             label="Senha"
             outlined
             dense
@@ -55,7 +83,7 @@ async function on_submit() {
       <q-card-section>
         <q-btn
           class="full-width"
-          label="Fazer Login"
+          label="Cadastrar"
           color="dark"
           size="md"
           style="border-radius: 8px"
@@ -68,14 +96,14 @@ async function on_submit() {
 
     <q-card-section class="text-center q-pt-none">
       <div class="text-grey-8">
-        Ainda não tem conta?
+        Já tem conta?
 
         <router-link
-          :to="{ name: ENUM_ROUTER_NAME.REGISTER }"
+          :to="{ name: ENUM_ROUTER_NAME.LOGIN }"
           class="text-dark text-weight-bold"
           style="text-decoration: none"
         >
-          Cadastre-se
+          Faça Login
         </router-link>
       </div>
     </q-card-section>

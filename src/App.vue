@@ -25,13 +25,7 @@ const router = useRouter();
 
     <q-page-container>
       <div class="content-area q-pa-sm">
-        <router-view v-slot="{ Component, route }">
-          <transition :duration="300" mode="out-in" name="fade">
-            <div :key="String(route.name)">
-              <component :is="Component" />
-            </div>
-          </transition>
-        </router-view>
+        <router-view />
       </div>
     </q-page-container>
   </q-layout>

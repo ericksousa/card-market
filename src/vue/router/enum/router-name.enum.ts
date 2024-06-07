@@ -3,4 +3,5 @@ export enum ENUM_ROUTER_NAME {
 
   // auth
   LOGIN = "login",
+  REGISTER = "register",
 }

@@ -21,9 +21,11 @@ function throw_error(type: string, message: string): never {
 export function err(err: AxiosError): never {
   let type = "negative";
 
-  const message = "Ocorreu um erro ao realizar a requisição";
-
   if (err.response?.status === 406) type = "warning";
+
+  const message =
+    (err.response?.data as TNodeError)?.message ??
+    "Ocorreu um erro ao realizar a requisição";
 
   throw_error(type, message);
 }

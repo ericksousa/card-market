@@ -10,4 +10,12 @@ export const auth_hooks: RouteRecordRaw[] = [
       title: "Login",
     },
   },
+  {
+    path: "/register",
+    name: ENUM_ROUTER_NAME.REGISTER,
+    component: () => import("@/views/pages/auth/register.vue"),
+    meta: {
+      title: "Cadastro",
+    },
+  },
 ];

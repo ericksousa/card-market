@@ -3,4 +3,6 @@ export enum ENUM_LOADING {
   SALVANDO = "Salvando...",
   BUSCANDO = "Buscando....",
   REMOVENDO = "Removendo...",
+  CADASTRANDO = "Cadastrando...",
+  LOGANDO = "Efetuando Login...",
 }
