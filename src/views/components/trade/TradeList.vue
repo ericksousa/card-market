@@ -2,13 +2,13 @@
 import TradeService from "@/controllers/services/trade.service";
 import { onMounted, ref } from "vue";
 import { Loading } from "quasar";
-import { FiltroPaginationEntity } from "@/models/entity/util/filtro-pagination.util";
+import { PaginationFilterEntity } from "@/models/entity/util/pagination-filter.util";
 import { QuasarPaginationEntity } from "@/models/entity/util/quasar-pagination.util";
 import { ENUM_LOADING } from "@/controllers/enum/loading.enum";
 import { ITrade } from "@/models/interfaces/trade.interface";
 import { TradeEntity } from "@/models/entity/trade/trade.entity";
 
-const filtro = new FiltroPaginationEntity();
+const filtro = new PaginationFilterEntity();
 const quasar_pagination = ref(new QuasarPaginationEntity({ rowsNumber: 10 })); // Back deveria trazer essa informação da quantidade total de registros
 
 const trades = ref<ITrade>(new TradeEntity());

@@ -10,4 +10,13 @@ export const card_hooks: RouteRecordRaw[] = [
       title: "Card",
     },
   },
+
+  {
+    path: "/trade-card",
+    name: ENUM_ROUTER_NAME.TRADE_CARD,
+    component: () => import("@/views/pages/card/TradeCard.vue"),
+    meta: {
+      title: "Trade Card",
+    },
+  },
 ];

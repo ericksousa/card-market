@@ -6,4 +6,5 @@ export enum ENUM_ROUTER_NAME {
   REGISTER = "register",
 
   ADD_CARD = "add-card",
+  TRADE_CARD = "trade",
 }

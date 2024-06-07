@@ -2,7 +2,7 @@ import { default as Connection } from "../config/axios.connection";
 import { make_url } from "../util/make-url.util";
 import { ResponsePaginateDTO } from "../util/response-dto.util";
 import { BaseService } from "./util/base.service";
-import { FiltroPaginationEntity } from "@/models/entity/util/filtro-pagination.util";
+import { PaginationFilterEntity } from "@/models/entity/util/pagination-filter.util";
 import { ICard } from "@/models/interfaces/card.interface";
 
 export class CardService extends BaseService {
@@ -11,7 +11,7 @@ export class CardService extends BaseService {
   }
 
   async getAllCards(
-    params: FiltroPaginationEntity
+    params: PaginationFilterEntity
   ): Promise<ResponsePaginateDTO<ICard>> {
     return this.getAll({ params });
   }
@@ -19,6 +19,11 @@ export class CardService extends BaseService {
   async addCardToUser(cardIds: { cardIds: string[] }): Promise<unknown> {
     this.override_url = make_url("me", "cards");
     return this.save(cardIds);
+  }
+
+  async getCardFromUser(): Promise<ICard[]> {
+    this.override_url = make_url("me", "cards");
+    return this.getAll();
   }
 }
 

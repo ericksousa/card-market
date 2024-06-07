@@ -45,7 +45,10 @@ function logout() {
                     <q-item-section>Adicionar cartas</q-item-section>
                   </q-item>
 
-                  <q-item clickable>
+                  <q-item
+                    @click="router.push({ name: ENUM_ROUTER_NAME.TRADE_CARD })"
+                    clickable
+                  >
                     <q-item-section>Trocar cartas</q-item-section>
                   </q-item>
 

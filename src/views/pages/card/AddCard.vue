@@ -1,7 +1,7 @@
 <script lang="ts" setup>
+import CardData from "@/views/data/card/card.data";
 import { ENUM_LOADING } from "@/controllers/enum/loading.enum";
 import { ICard } from "@/models/interfaces/card.interface";
-import CardData from "@/views/data/card/card.data";
 import { CreateNotify } from "@/views/util/notify.util";
 import { Loading } from "quasar";
 import { reactive, ref } from "vue";
