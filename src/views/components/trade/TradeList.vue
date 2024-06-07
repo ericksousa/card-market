@@ -13,7 +13,7 @@ import { CreateNotify } from "@/views/util/notify.util";
 const store = auth_store();
 
 const filtro = new PaginationFilterEntity();
-const quasar_pagination = ref(new QuasarPaginationEntity({ rowsNumber: 10 })); // Back deveria trazer essa informação da quantidade total de registros
+const quasar_pagination = ref(new QuasarPaginationEntity()); // Back deveria trazer essa informação da quantidade total de registros
 
 const trades = ref<ITrade>(new TradeEntity());
 
@@ -37,6 +37,8 @@ async function on_request({ pagination }): Promise<void> {
   filtro.rpp = pagination.rowsPerPage;
 
   trades.value = await load_trades();
+
+  calc_rowsNumber();
 }
 
 async function remove_trade(tradeId: string): Promise<void> {
@@ -52,8 +54,21 @@ async function remove_trade(tradeId: string): Promise<void> {
     .finally(() => Loading.hide());
 }
 
+function calc_rowsNumber() {
+  if (trades.value.more) {
+    quasar_pagination.value.rowsNumber =
+      quasar_pagination.value.page * quasar_pagination.value.rowsPerPage +
+      quasar_pagination.value.rowsPerPage;
+  }
+}
+
 onMounted(async () => {
   trades.value = await load_trades();
+
+  /**
+   * POG pra paginar "corretamente". O ideal seria o back trazer o total de registros
+   */
+  calc_rowsNumber();
 });
 </script>
 
@@ -62,6 +77,7 @@ onMounted(async () => {
     <q-table
       :rows="trades.list"
       :columns="columns"
+      :rows-per-page-options="[filtro.rpp]"
       @request="on_request"
       v-model:pagination="quasar_pagination"
       no-data-label="Nenhum registro de troca encontrado"
