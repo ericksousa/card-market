@@ -7,6 +7,10 @@ import { QuasarPaginationEntity } from "@/models/entity/util/quasar-pagination.u
 import { ENUM_LOADING } from "@/controllers/enum/loading.enum";
 import { ITrade } from "@/models/interfaces/trade.interface";
 import { TradeEntity } from "@/models/entity/trade/trade.entity";
+import { auth_store } from "@/vue/store/auth/auth.store";
+import { CreateNotify } from "@/views/util/notify.util";
+
+const store = auth_store();
 
 const filtro = new PaginationFilterEntity();
 const quasar_pagination = ref(new QuasarPaginationEntity({ rowsNumber: 10 })); // Back deveria trazer essa informação da quantidade total de registros
@@ -35,6 +39,19 @@ async function on_request({ pagination }): Promise<void> {
   trades.value = await load_trades();
 }
 
+async function remove_trade(tradeId: string): Promise<void> {
+  Loading.show({
+    message: ENUM_LOADING.CANCELANDO,
+  });
+
+  await TradeService.delete(tradeId)
+    .then(async () => {
+      CreateNotify.success("Troca cancelada com sucesso!");
+      trades.value = await load_trades();
+    })
+    .finally(() => Loading.hide());
+}
+
 onMounted(async () => {
   trades.value = await load_trades();
 });
@@ -53,13 +70,33 @@ onMounted(async () => {
       row-key="id"
       grid
     >
-      <template v-slot:item="{ row }">
+      <template #item="{ row }">
         <div class="q-pa-xs col-xs-12 col-sm-6 col-md-4">
           <q-card flat bordered>
             <q-card-section class="text-center">
-              Usuário
-              <br />
-              <strong>{{ row.user.name }}</strong>
+              <div class="row items-center no-wrap">
+                <div style="flex: 1">
+                  Usuário
+                  <br />
+                  <strong>{{ row.user.name }}</strong>
+                </div>
+
+                <q-btn
+                  v-if="row.userId === store.user?.id"
+                  icon="fa-solid fa-ellipsis-vertical"
+                  color="grey-7"
+                  round
+                  flat
+                >
+                  <q-menu auto-close>
+                    <q-list>
+                      <q-item @click="remove_trade(row.id)" clickable>
+                        <q-item-section>Cancelar troca</q-item-section>
+                      </q-item>
+                    </q-list>
+                  </q-menu>
+                </q-btn>
+              </div>
             </q-card-section>
 
             <q-separator />

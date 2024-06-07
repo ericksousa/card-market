@@ -5,4 +5,5 @@ export enum ENUM_LOADING {
   REMOVENDO = "Removendo...",
   CADASTRANDO = "Cadastrando...",
   LOGANDO = "Efetuando Login...",
+  CANCELANDO = "Cancelando...",
 }

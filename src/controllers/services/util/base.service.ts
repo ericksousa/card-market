@@ -42,6 +42,16 @@ export abstract class BaseService {
       });
   }
 
+  async delete<S = unknown>(id: string | number): Promise<S> {
+    return await this.axios
+      .delete(make_url(this._url(), id))
+      .then((r) => r.data)
+      .catch(err)
+      .finally(() => {
+        this.resetOverride();
+      });
+  }
+
   private _url(): string {
     return this.override_url ?? this.url;
   }
