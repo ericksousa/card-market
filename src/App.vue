@@ -5,6 +5,11 @@ import { auth_store } from "@/vue/store/auth/auth.store";
 
 const router = useRouter();
 const store = auth_store();
+
+function logout() {
+  store.logout();
+  router.push({ name: ENUM_ROUTER_NAME.HOME });
+}
 </script>
 
 <template>
@@ -33,7 +38,10 @@ const store = auth_store();
 
                   <q-separator />
 
-                  <q-item clickable>
+                  <q-item
+                    @click="router.push({ name: ENUM_ROUTER_NAME.ADD_CARD })"
+                    clickable
+                  >
                     <q-item-section>Adicionar cartas</q-item-section>
                   </q-item>
 
@@ -43,7 +51,7 @@ const store = auth_store();
 
                   <q-separator />
 
-                  <q-item @click="store.logout()" clickable>
+                  <q-item @click="logout()" clickable>
                     <q-item-section>Sair</q-item-section>
                   </q-item>
                 </q-list>

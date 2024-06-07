@@ -6,6 +6,8 @@ export class CreateNotify {
       message,
       type: "positive",
       color: "positive",
+      progress: true,
+      actions: [{ icon: "fa-solid fa-xmark", color: "white", round: true }],
     });
   }
 
@@ -13,6 +15,8 @@ export class CreateNotify {
     Notify.create({
       message,
       type: "negative",
+      progress: true,
+      actions: [{ icon: "fa-solid fa-xmark", color: "white", round: true }],
     });
   }
 }

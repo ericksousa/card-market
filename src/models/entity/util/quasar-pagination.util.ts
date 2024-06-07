@@ -3,13 +3,14 @@ export class QuasarPaginationEntity {
   descending: boolean;
   page: number;
   rowsPerPage: number;
-  rowsNumber?: number;
+  rowsNumber: number;
 
   constructor(this_class?: Partial<QuasarPaginationEntity>) {
     this.sortBy = "desc";
     this.descending = false;
     this.page = 1;
     this.rowsPerPage = 10;
+    this.rowsNumber = 0;
 
     if (this_class) {
       Object.entries(this_class).forEach(([key, value]) => {

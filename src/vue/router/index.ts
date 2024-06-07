@@ -1,10 +1,11 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import { home_hooks } from "./hooks/home.hook";
 import { auth_hooks } from "./hooks/auth.hooks";
+import { card_hooks } from "./hooks/card.hook";
 import { auth_store } from "../store/auth/auth.store";
 import { ENUM_ROUTER_NAME } from "./enum/router-name.enum";
 
-const routes: RouteRecordRaw[] = [home_hooks, ...auth_hooks];
+const routes: RouteRecordRaw[] = [home_hooks, ...auth_hooks, ...card_hooks];
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_BASE_URL),
