@@ -24,6 +24,10 @@ class CardData {
       () => (this.loading_cards = false)
     );
   }
+
+  async add_card_to_user(cardIds: { cardIds: string[] }): Promise<unknown> {
+    return await CardService.addCardToUser(cardIds);
+  }
 }
 
 export default new CardData();
