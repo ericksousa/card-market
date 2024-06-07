@@ -1,3 +1,10 @@
+<script lang="ts" setup>
+import { useRouter } from "vue-router";
+import { ENUM_ROUTER_NAME } from "./vue/router/enum/router-name.enum";
+
+const router = useRouter();
+</script>
+
 <template>
   <q-layout>
     <q-header class="bg-primary text-white">
@@ -5,7 +12,13 @@
         <q-toolbar-title class="text-center"> Card Market </q-toolbar-title>
 
         <div class="auth-area absolute">
-          <q-btn color="secondary" label="Login" rounded unelevated />
+          <q-btn
+            @click="router.push({ name: ENUM_ROUTER_NAME.LOGIN })"
+            color="secondary"
+            label="Login"
+            rounded
+            unelevated
+          />
         </div>
       </q-toolbar>
     </q-header>
