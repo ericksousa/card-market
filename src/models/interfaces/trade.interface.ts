@@ -20,6 +20,6 @@ export interface ITradeCard {
   id: string;
   cardId: string;
   tradeId: string;
-  type: string;
+  type: "OFFERING" | "RECEIVING";
   card: ICard;
 }

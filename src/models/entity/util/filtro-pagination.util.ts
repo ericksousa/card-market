@@ -1,8 +1,8 @@
-export class PaginationEntity {
+export class FiltroPaginationEntity {
   page: number;
   rpp: number;
 
-  constructor(this_class?: PaginationEntity) {
+  constructor(this_class?: Partial<FiltroPaginationEntity>) {
     this.page = 1;
     this.rpp = 10;
 
