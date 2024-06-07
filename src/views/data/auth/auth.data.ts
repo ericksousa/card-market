@@ -17,6 +17,10 @@ class AuthData {
   async register(payload: RegisterEntity) {
     return await AuthService.register(payload);
   }
+
+  async login(payload: LoginEntity) {
+    return await AuthService.login(payload);
+  }
 }
 
 export default new AuthData();

@@ -1,15 +1,29 @@
 <script lang="ts" setup>
+import AuthData from "@/views/data/auth/auth.data";
 import { reactive, ref } from "vue";
 import { field_required } from "@/views/util/validation.util";
-import AuthData from "@/views/data/auth/auth.data";
 import { ENUM_ROUTER_NAME } from "@/vue/router/enum/router-name.enum";
+import { Loading } from "quasar";
+import { ENUM_LOADING } from "@/controllers/enum/loading.enum";
+import { CreateNotify } from "@/views/util/notify.util";
+import { useRouter } from "vue-router";
 
 const data = reactive(AuthData);
-
+const router = useRouter();
 const showPwd = ref(false);
 
 async function on_submit() {
-  console.log("ok");
+  Loading.show({
+    message: ENUM_LOADING.LOGANDO,
+  });
+
+  await data
+    .login(data.payload_login)
+    .then(() => {
+      CreateNotify.success("Login efetuado com sucesso!");
+      router.push({ name: ENUM_ROUTER_NAME.HOME });
+    })
+    .finally(() => Loading.hide());
 }
 </script>
 
